@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Body Section */
+        body {
+            background-color: papayawhip;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        /* Header Section */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            position:fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items:center;
+        }
+
+        
+        /* Navigation Section */
+        .navbar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            
+        }
+        
+        .title a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-size: 40px;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            position: absolute;
+            left: 80%;
+            transform: translateX(-15%);
+            font-size: 10px;
+            
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #e74c3c;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background: #fff;
+                width: 200px;
+                flex-direction: column;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+        .nav-links a {
+            padding: 1rem;
+            text-align: center;
+        }   }
+
+
+
+        /* Sliding Menu Section */
+        #menu{
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        #sidenav{
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color:#e74c3c;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 70px;
+            font-size: 20px;
+        }
+
+        p{
+            color: whitesmoke;
+            text-align: center;
+        }
+
+        a{
+            text-align: left;
+            margin-left: 30px;
+            color:#fff;
+            text-decoration: none;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #sidenav #closebtn{
+            position:absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            color: whitesmoke;
+            cursor: pointer;
+        }
+
+        h1{
+            text-align: center;
+            font-size: 100px;
+        }
+
+        #sidenav a {
+            color:#fff;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        #sidenav a:hover{
+            color:yellow;
+        }
+
+        .hrsidenav{
+            width: 215px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+
+        /* Content Description Section */
+        .contentdescription {
+            background-color: white;
+            padding: 40px;
+            max-width: 2000px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            margin: 100px auto; /* Center the content block and give it margin */
+            font-family: "Poppins", sans-serif;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hotel-header {
+            font-size: 36px;
+            color: #004d40;
+            margin-bottom: 20px;
+        }
+
+        .hotel-subheader {
+            font-size: 24px;
+            color: #00897b;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .hotel-description {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+
+        /* Content Card (Group) Section */
+        .content {
+            background-color: white;
+            padding: 120px;
+            max-width: 2000px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 0px auto; /* Center the content block and give it margin */
+            font-family: "Poppins", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            padding-bottom: 50px;
+            padding-top: 50px;
+        }
+
+        .content2 {
+            background-color: white;
+            padding: 120px;
+            max-width: 2000px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 0px auto; /* Center the content block and give it margin */
+            font-family: "Poppins", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            padding-top: 0px;
+            padding-bottom: 50px;
+        }
+
+
+        /* Card 1 Flip Section */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .card {
+            width: 500px; /* Set width of the card */
+        }
+
+        .card h1{
+            font-size: 90px; /* Font size for heading inside the card */
+        }
+        
+        .card-content {
+            position: relative; /* Positioning context for card content */
+            padding: 15rem 5rem; /* Padding inside the card content */
+            transform-style: preserve-3d; /* Preserve 3D transformations */
+            transition: transform 1.5s; /* Transition effect for transform */
+        }
+
+        .card:hover .card-content {
+            transform: rotateY(180deg); /* Flip card on hover */
+        }
+        
+        .card-front,
+        .card-back {
+            position: absolute; /* Positioning for front and back faces */
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 2rem; /* Padding for front and back faces */
+            display: flex; /* Flex layout for content alignment */
+            flex-direction: column; /* Column layout for content */
+            justify-content: center; /* Center content vertically */
+            backface-visibility: hidden; /* Hide backface of elements */
+            transform-style: preserve-3d; /* Preserve 3D transformations */
+        }
+        
+        .card-front, .card-back {
+            background-size: cover; /* Cover background image */
+            background-repeat: no-repeat; /* No repeat for background */
+            background-blend-mode: overlay; /* Blend mode for background */
+            color: black;
+        }
+        
+        .card-front {
+            background-image: url(premiumtowerroom.jpg); /* Background image for front face */
+            background-color: rgba(255, 163, 42, 0.2); /* Background color with opacity */
+            align-items: center; /* Center align items in front face */
+        }
+        
+        .card-front::before {
+            content: "";
+            position: absolute; /* Positioning for pseudo-element */
+            inset: 1rem; /* Inset positioning */
+            border: 3px solid #e74c3c; /* Border style and color */
+            transform: translateZ(2rem); /* Translate in Z-axis for depth effect */
+        }
+        
+        .cardtitle { 
+            font-size: 4.5rem;
+            text-transform: uppercase; /* Uppercase text */
+            line-height: 120%; /* Line height */
+            transform: translateZ(4.4rem); /* Translate in Z-axis for depth effect */
+        }
+        
+        .sub-title {
+            font-size: 15px;
+            font-weight: 500; /* Font weight for subtitle */
+            text-transform: uppercase;
+            letter-spacing: 3px; /* Letter spacing */
+            transform: translateZ(3rem); /* Translate in Z-axis for depth effect */
+            color: black;
+        }
+        
+        .card-back {
+            background-image: url(./cardbackimg.png); /* Background image for back face */
+            transform: rotateY(180deg); /* Initially rotate back face */
+            gap: 0.5rem; /* Gap between elements */
+        }
+        
+        .back-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: black;
+            text-transform: uppercase;
+            align-self: center;
+            transform: translateZ(2rem); /* Translate in Z-axis for depth effect */
+        }
+        
+        .card-back span {
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        
+        .btn {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 2.2rem;
+            color: black; /* Text color */
+            border: 2px solid black; /* Border style and color */
+            border-radius: 100px;
+            text-align: center;
+            align-self: center;
+            margin-top: 5px; /* Top margin of button */
+            transform: translateZ(2rem); /* Translate in Z-axis for depth effect */
+            transition: 0.3s ease; /* Transition effect */
+        }
+        
+        .btn:hover {
+            background-color: #e74c3c; /* Background color on hover */
+            color: white; /* Text color on hover */
+            border: 2px solid black; /* Border style and color on hover */
+            cursor:pointer;
+        }
+        
+        /* End of Card 1 Flip Section */
+
+        /* Card 2 Flip Section */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .card2 {
+            width: 500px;       
+        }
+
+        .card2 h1{
+            font-size: 90px;
+        }
+        
+        .card-content2 {
+            position: relative;
+            padding: 15rem 5rem;
+            transform-style: preserve-3d;
+            transition: transform 1.5s;
+        }
+
+        .card2:hover .card-content2 {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front2,
+        .card-back2 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+        
+        .card-front2, .card-back2 {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            color: black;
+        }
+        
+        .card-front2 {
+            background-image: url(deluxe\ water\ chalet.jpg);
+            background-color: rgba(255, 163, 42, 0.2);
+            align-items: center;
+        }
+        
+        .card-front2::before {
+            content: "";
+            position: absolute;
+            inset: 1rem;
+            border: 3px solid #e74c3c;
+            transform: translateZ(2rem);
+        }
+        
+        .cardtitle2 {
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            line-height: 120%;
+            transform: translateZ(4.4rem);
+        }
+        
+        .sub-title2 {
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transform: translateZ(3rem);
+            color: black;
+        }
+        
+        .card-back2 {
+            background-image: url(./cardbackimg.png);
+            transform: rotateY(180deg);
+            gap: 0.5rem;
+        }
+        
+        .back-title2 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: black;
+            text-transform: uppercase;
+            align-self: center;
+            transform: translateZ(2rem);
+        }
+        
+        .card-back2 span {
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        
+        .btn2 {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 2.2rem;
+            color: black;
+            border: 2px solid black;
+            border-radius: 100px;
+            text-align: center;
+            align-self: center;
+            margin-top: 1rem;
+            transform: translateZ(2rem);
+            transition: 0.3s ease;
+        }
+        
+        .btn2:hover {
+            background-color: #e74c3c;
+            color: white;
+            border: 2px solid black;
+            cursor:pointer;
+        }
+        /* End Of Card 2 Flip Section */
+
+        /* Card 3 Flip Section */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .card3 {
+            width: 500px;
+        }
+
+        .card3 h1{
+            font-size: 90px;
+        }
+        
+        .card-content3 {
+            position: relative;
+            padding: 15rem 5rem;
+            transform-style: preserve-3d;
+            transition: transform 1.5s;
+        }
+
+        .card3:hover .card-content3 {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front3,
+        .card-back3 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+        
+        .card-front3, .card-back3 {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            color: black;
+        }
+        
+        .card-front3 {
+            background-image: url(premiumwaterchalet.jpg);
+            background-color: rgba(255, 163, 42, 0.2);
+            align-items: center;
+        }
+        
+        .card-front3::before {
+            content: "";
+            position: absolute;
+            inset: 1rem;
+            border: 3px solid #e74c3c;
+            transform: translateZ(2rem);
+        }
+        
+        .cardtitle3 {
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            line-height: 120%;
+            transform: translateZ(4.4rem);
+        }
+        
+        .sub-title3 {
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transform: translateZ(3rem);
+            color: black;
+        }
+        
+        .card-back3 {
+            background-image: url(./cardbackimg.png);
+            transform: rotateY(180deg);
+            gap: 0.5rem;
+        }
+        
+        .back-title3 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: black;
+            text-transform: uppercase;
+            align-self: center;
+            transform: translateZ(2rem);
+        }
+        
+        .card-back3 span {
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        
+        .btn3 {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 2.2rem;
+            color: black;
+            border: 2px solid black;
+            border-radius: 100px;
+            text-align: center;
+            align-self: center;
+            margin-top: 1rem;
+            transform: translateZ(2rem);
+            transition: 0.3s ease;
+        }
+        
+        .btn3:hover {
+            background-color: #e74c3c;
+            color: white;
+            border: 2px solid black;
+            cursor:pointer;
+        }
+        /* End Of Card 3 Flip Section */
+
+        /* Card 4 Flip Section */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .card4 {
+            width: 500px;
+        }
+
+        .card4 h1{
+            font-size: 90px;
+        }
+        
+        .card-content4 {
+            position: relative;
+            padding: 15rem 5rem;
+            transform-style: preserve-3d;
+            transition: transform 1.5s;
+        }
+
+        .card4:hover .card-content4 {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front4,
+        .card-back4 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+        
+        .card-front4, .card-back4 {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            color: black;
+        }
+        
+        .card-front4 {
+            background-image: url(executivewaterchalet.jpg);
+            background-color: rgba(255, 163, 42, 0.2);
+            align-items: center;
+        }
+        
+        .card-front4::before {
+            content: "";
+            position: absolute;
+            inset: 1rem;
+            border: 3px solid #e74c3c;
+            transform: translateZ(2rem);
+        }
+        
+        .cardtitle4 {
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            line-height: 120%;
+            transform: translateZ(4.4rem);
+        }
+        
+        .sub-title4 {
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transform: translateZ(3rem);
+            color: black;
+        }
+        
+        .card-back4 {
+            background-image: url(./cardbackimg.png);
+            transform: rotateY(180deg);
+            gap: 0.5rem;
+        }
+        
+        .back-title4 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: black;
+            text-transform: uppercase;
+            align-self: center;
+            transform: translateZ(2rem);
+        }
+        
+        .card-back4 span {
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        
+        .btn4 {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 2.2rem;
+            color: black;
+            border: 2px solid black;
+            border-radius: 100px;
+            text-align: center;
+            align-self: center;
+            margin-top: 1rem;
+            transform: translateZ(2rem);
+            transition: 0.3s ease;
+        }
+        
+        .btn4:hover {
+            background-color: #e74c3c;
+            color: white;
+            border: 2px solid black;
+            cursor:pointer;
+        }
+        /* End Of Card 4 Flip Section */
+
+
+        /* Button Go to Checkout Section */
+
+        /* Global Styles to reset margin, padding, and set box-sizing */
+        *,
+        *::before,
+        *::after {
+            margin: 0; /* Reset margin to 0 for all elements */
+            padding: 0; /* Reset padding to 0 for all elements */
+            box-sizing: border-box; /* Set box-sizing to border-box for all elements */
+        }
+        /* Styles for the body of the button section */
+        #bodybutton {
+            font-family: "Roboto";
+            display: flex; /* Use flexbox for layout */
+            justify-content:center; /* Center items horizontally */
+            align-items:center; /* Center items vertically */
+            margin-bottom: 100px;
+            padding-top: 0px;
+            background-color: white;
+            padding-bottom: 50px;
+            border-end-end-radius: 10px;
+        }
+        
+        button {
+            border: 0; /* Remove border */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            position: relative; /* Set position to relative for positioning child elements */
+        }
+        /* Styles for the button's inner div */
+        button div {
+            background-color: rgb(255, 70, 85);
+            padding: 1.2rem 5.5rem; /* Add padding */
+            position: relative; /* Set position to relative for positioning child elements */
+            overflow: hidden; /* Hide overflow content */
+        }
+        /* Styles for the button's anchor element */
+        button a {
+            position: relative; /* Set position to relative */
+            text-decoration: none; /* Remove underline from text */
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ece8e1;
+            text-transform: uppercase; /* Transform text to uppercase */
+            z-index: 2; /* Set z-index to position above other elements */
+            margin: 10px auto; /* Center the element with margin */
+        }
+        
+        /* Styles for the button's before and after pseudo-elements */
+        button::before,
+        button::after {
+            content: ""; /* Insert empty content */
+            position: absolute; /* Set position to absolute */
+            width: 105%;
+            height: 50%;
+            background-color: transparent; /* Set background color to transparent */
+            left: -2.5%; /* Position slightly to the left */
+            z-index: -1; /* Position behind other elements */
+        }
+        /* Additional styles for the button's before pseudo-element */
+        button::before {
+            border-bottom: 0; /* Remove bottom border */
+            top: -10%; /* Position slightly above */
+        }
+        /* Additional styles for the button's after pseudo-element */
+        button::after {
+            border-top: 0; /* Remove top border */
+            bottom: -10%; /* Position slightly below */
+        }
+        /* Styles for the button's span element */
+        button span {
+            position: absolute; /* Set position to absolute */
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 110%;
+            background-color: rgb(15, 25, 35);
+            transform: translateX(-105%) skew(-10deg); /* Apply transformation */
+            transition: 0.4s ease; /* Set transition effect */
+        }
+        /* Styles for the button's span element on hover */
+        button:hover span {
+            transform: translateX(-5%) skew(-10deg); /* Apply transformation on hover */
+        }
+
+    
+        /* Footer Section */
+        .footer {
+            background-color: #20263e;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer .footertitle {
+            font-size: 36px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .footer .address,
+        .footer .contact {
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        .footer .social-icons {
+            margin: 5px 0;
+        }
+        
+        .footer .social-icons a {
+            margin: 0 5px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px
+        }
+        
+        .footer .social-icons a:hover {
+            color: #e74c3c;
+        }
+        
+        .footer .icon-container {
+            text-align: center;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .footer .icon-container img {
+            display: block;
+            margin: 0 auto;
+            margin-top: 5px;
+        }
+        
+        .imgicon {
+            width: 50px;
+        }
+
+        .footer .newsletter {
+            margin: 5px 0;
+        }
+
+        .footer .newsletter input[type="email"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        .footer .newsletter button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e74c3c;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .footer .newsletter button:hover {
+            background-color: #d62c1a;
+        }
+
+        .footer .copyright {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+
+    <script>
+        // Navigation Link Section
+        const navLinks = document.querySelector('.nav-links');
+        
+        
+        menuIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('active');   
+        });
+
+        // Sliding Menu Section
+        function open_nav(){
+            document.getElementById('sidenav').style.width = '250px';
+        }   
+
+        function closebtn(){
+            document.getElementById('sidenav').style.width = '0';
+        }
+
+
+        // Footer Section
+        function subscribeAlert() {
+            alert('Thank you for subscribing to our newsletter!');
+        }
+
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="navbar">
+
+            <span id="menu" onclick="open_nav()">&#9776;</span>
+            <div id="sidenav">
+                <span id="closebtn" onclick="closebtn()">&times</span>
+
+                <hr class="hrsidenav"> 
+                <a href="homepage.html" class="insidenav">Home</a> 
+                <br> 
+                <hr class="hrsidenav">
+                <a href="gallery.html" class="insidenav">Gallery</a> 
+                <br> 
+                <hr class="hrsidenav">
+                <a href="bookinglist.html" class="insidenav">History</a> 
+                <br> 
+                <hr class="hrsidenav">
+            </div>
+
+            <div class="title">
+                <a href="homepage.html" id="title">SIGMA PREMIER HOTEL</a>
+            </div>
+
+            <nav class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="bookingcart.html">Accommodation</a>
+                <a href="checkout.html">Checkout</a>
+            </nav>  
+            
+            <div class="checkout-link">
+                <a href="checkout.html">Checkout</a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Content Section -->
+
+    <div class="contentdescription">
+        <h1 class="hotel-header">Rooms & Chalets</h1>
+        <h3 class="hotel-subheader">Recharge, Reconnect in Comfort & Harmony</h3>
+        <p class="hotel-description">
+            Accommodation at Sigma Premier Hotel comprises the modestly proportioned Deluxe Water Chalets and Executive Water Chalets, to the spacious Premium Water Chalets, <br>each delivering a one-of-a-kind
+            immersive experience to guests who seek a relaxing over-the-water living experience. For a taste of sky-high living, the Premium Tower Sea view is recommended <br>with its unrestricted
+            views of the resort’s picturesque vicinity stretching far into the sea, in perfectly harmonious unity with its natural setting. <br> <br>
+
+            All the 392 water chalets and tower rooms are furnished with king and queen beds, or king and day beds, within a cosy environment with concealed lightings. <br>Guests also enjoy the luxury of a private 
+            balcony for added privacy and convenience, 
+            also favoured for fishing. <br>The water chalets also come with open-concept bathrooms for a more unique experience. <br> <br>
+
+            Escape to a waterfront paradise at Sigma Premier Hotel, your premier choice for a remarkable water chalet resort in Ohio, United States. <br>
+            Embrace the breathtaking views, feel the gentle sea breeze on 
+            your skin, and surrender to the tranquility of your surroundings.
+        </p>
+
+    </div>
+
+    <div class="content">
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-front">
+                    <p class="sub-title">SIGMA PREMIER HOTEL</p>
+                    <h1 class="card">Premium <br> Tower <br> Room</h1>
+                    <p class="sub-title">OHIO</p>
+                </div>
+
+                <div class="card-back">
+                    <div class="back-title">Premium Tower Room</div>
+                        <div class="room-description">
+                            <span>Description: </span>Located on the 5th to the 11th floor of the main tower block, these rooms offer sky-high living where guests can enjoy unobstructed views of the sea and 
+                            the rest of the quaint resort.
+                    </div>
+                    <div class="room-amenities">
+                        <span>In-Room Amenities: </span>56 sqm,
+                        Located in the Tower Block,
+                        1 King & 1 Queen bed,
+                        Can accommodate up to 4 persons,
+                        Private balcony,
+                        Spacious bathroom with separate shower, 
+                        Bathtub,
+                        Bespoke bath amenities,
+                        Hairdryer,
+                        Air conditioning,
+                        Electric kettle,
+                        Complimentary coffee & tea,
+                        Pillowtop beds with plush bedding,
+                        Room service,
+                        Free wireless Internet,
+                        Television with 24 hours in-house movie channels,
+                        IDD telephone,
+                        Iron and ironing board,
+                        Safety deposit box.
+                    </div>
+                    <div class="room-rates">
+                        <span>Price: </span> RM288.00
+                    </div>
+                    <div class="btn" onclick="addToCheckout('Premium Tower Room', 'RM288.00')">Book Now</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card2">
+            <div class="card-content2">
+                <div class="card-front2">
+                    <p class="sub-title2">SIGMA PREMIER HOTEL</p>
+                    <h1 class="card2">Deluxe <br> Water <br> Chalet</h1>
+                    <p class="sub-title2">OHIO</p>
+                </div>
+
+                <div class="card-back2">
+                    <div class="back-title2">Deluxe Water Chalet</div>
+                        <div class="room-description">
+                            <span>Description: </span>Each of the 418 square feet Deluxe Water Chalets comes with 1 king size bed and 1 day bed. Perched over the sea, the chalets either come with full sea views, 
+                            or partial sea views along with the lovely surrounding resort compound.
+                    </div>
+                    <div class="room-amenities">
+                        <span>In-Room Amenities: </span>38.83 sqm,
+                        Located above the sea,
+                        1 king size bed & 1 day bed,
+                        Can accommodate up to 3 persons,
+                        Private balcony,
+                        Spacious bathroom with separate shower,
+                        Bathtub,
+                        Bespoke bath amenities,
+                        Hairdryer,
+                        Air conditioning,
+                        Electric kettle,
+                        Complimentary coffee & tea,
+                        Pillowtop beds with plush bedding,
+                        Room service,
+                        Free wireless Internet,
+                        Television with 24 hours in-house movie channels,
+                        IDD telephone,
+                        Iron and ironing board,
+                        Safety deposit box.
+                    </div>
+                    <div class="room-rates">
+                        <span>Price: </span> RM798.00
+                    </div>
+                        <div class="btn" onclick="addToCheckout('Deluxe Water Chalet', 'RM798.00')">Book Now</div>
+                </div>
+            </div>
+        </div>
+  
+    </div>
+
+
+    <div class="content2">
+
+        <div class="card4">
+            <div class="card-content4">
+                <div class="card-front4">
+                    <p class="sub-title4">SIGMA PREMIER HOTEL</p>
+                    <h1 class="card4">Executive <br> Water <br> Chalet</h1>
+                    <p class="sub-title4">OHIO</p>
+                </div>
+
+                <div class="card-back4">
+                    <div class="back-title4">Executive Water Chalet</div>
+                        <div class="room-description">
+                            <span>Description: </span>Each of the 510 square feet Executive Water Chalets is luxuriously airy and furnished with 1 king size bed and 1 day bed. 
+                            To add a touch of elegance, the king size bed comes with a lustrous canopy draped across the top. Every unit comes with a separate shower and bathtub for 
+                            added indulgence and convenience.  
+                    </div>
+                    <div class="room-amenities">
+                        <span>In-Room Amenities: </span>47.38 sqm,
+                        Located above the sea,
+                        1 king size bed & 1 day bed,
+                        Can accommodate up to 3 persons,
+                        Private balcony,
+                        Spacious bathroom with separate shower,
+                        Bathtub,
+                        Bespoke bath amenities,
+                        Hairdryer,
+                        Air conditioning,
+                        Electric kettle,
+                        Complimentary coffee & tea,
+                        Pillowtop beds with plush bedding,
+                        Room service,
+                        Free wireless Internet,
+                        Television with 24 hours in-house movie channels,
+                        IDD telephone,
+                        Iron and ironing board,
+                        Safety deposit box.
+                    </div>
+                    <div class="room-rates">
+                        <span>Price: </span> RM898.00
+                    </div>
+                        <div class="btn" onclick="addToCheckout('Executive Water Chalet', 'RM898.00')">Book Now</div>
+                </div>
+            </div>
+        </div>
+        <div class="card3">
+            <div class="card-content3">
+                <div class="card-front3">
+                    <p class="sub-title3">SIGMA PREMIER HOTEL</p>
+                    <h1 class="card3">Premium <br> Water <br> Chalet</h1>
+                    <p class="sub-title3">OHIO</p>
+                </div>
+
+                <div class="card-back3">
+                    <div class="back-title3">Premium Water Chalet</div>
+                        <div class="room-description">
+                            <span>Description: </span>Each Premium Water Chalet comes with 1 king size bed and 1 queen size bed which can fit 4 guests comfortably, 
+                            and measures at 605 square feet, making it the most spacious accommodation available in the entire resort. 
+                    </div>
+                    <div class="room-amenities">
+                        <span>In-Room Amenities: </span>56.2 sqm,
+                        1 king size bed and 1 queen size bed,
+                        Located above the sea,
+                        Can accommodate up to 4 persons,
+                        Private balcony,
+                        Spacious bathroom with separate shower,
+                        Bathtub,
+                        Bespoke bath amenities,
+                        Hairdryer,
+                        Air conditioning,
+                        Electric kettle,
+                        Complimentary coffee & tea,
+                        Pillowtop beds with plush bedding,
+                        Room service,
+                        Free wireless Internet,
+                        Television with 24 hours in-house movie channels,
+                        IDD telephone,
+                        Iron and ironing board,
+                        Safety deposit box.
+                    </div>
+                    <div class="room-rates">
+                        <span>Price: </span> RM998.00
+                    </div>
+                        <div class="btn" onclick="addToCheckout('Premium Water Chalet', 'RM998.00')">Book Now</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    
+    <div id="bodybutton">
+        <button>
+          <div>
+            <span></span>
+            <a href="checkout.html">GO TO BOOKING CART</a>
+          </div>
+        </button>
+    </div>
+    
+
+    <script>
+        //Add to Checkout Section
+        function addToCheckout(roomName, price) {
+            // Retrieve checkout items from local storage or initialize an empty array
+            let checkoutItems = JSON.parse(localStorage.getItem('checkoutItems')) || [];
+            // Add the new room and price to the checkout items array
+            checkoutItems.push({ roomName, price });
+            // Store updated checkout items back into local storage
+            localStorage.setItem('checkoutItems', JSON.stringify(checkoutItems));
+
+            // Communicate with the checkout page
+            // Trigger an event to communicate with the checkout page if open in another tab
+            window.dispatchEvent(new Event('storage'));
+            // Alert to notify user that the room has been added to checkout
+            alert(`${roomName} added to checkout.`);
+        }
+    </script>
+
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footertitle">Sigma Premier Hotel</div>
+        <div class="address">
+            123 Luxury Lane, Columbus, Ohio, 43215
+        </div>
+        <div class="contact">
+            Phone: (123) 456-7890 | Email: contact@sigmapremierhotel.com
+        </div>
+        <div class="footer">
+            <div class="social-icons">
+                <div class="icon-container">
+                    <a href="https://www.facebook.com/"><i class="fa fa-facebook">Facebook</i><img src="facebookicon.png" alt="Facebook Icon" class="imgicon"></a>
+                    
+                </div>
+                <div class="icon-container">
+                    <a href="https://www.twitter.com/"><i class="fa fa-twitter">Twitter</i><img src="twittericon.png" alt="" class="imgicon"></a>
+                </div>
+                <div class="icon-container">
+                    <a href="https://www.instagram.com/"><i class="fa fa-instagram">Instagram</i><img src="instagramicon.png" alt="" class="imgicon"></a>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="newsletter">
+            <p>Subscribe to our newsletter for the latest updates!</p>
+            <br>
+            <input type="email" placeholder="Enter your email" required>
+            <button type="button" onclick="subscribeAlert()">Subscribe</button>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Sigma Premier Hotel. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Font for social icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
+</body>
+</html>

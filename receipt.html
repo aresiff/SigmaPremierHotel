@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* Body Section */
+        body {
+            background-color: papayawhip;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+
+        /* Header Section */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            position:fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+        /* Navigation Section */
+        .navbar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-54%);
+            font-size: 24px;
+            font-weight: bold;
+            
+        }
+        
+        .title a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-size: 40px;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            position: absolute;
+            left: 80%;
+            transform: translateX(-25%);
+            font-size: 10px;
+            
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #e74c3c;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background: #fff;
+                width: 200px;
+                flex-direction: column;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+        .nav-links a {
+            padding: 1rem;
+            text-align: center;
+        }   }
+
+
+
+        /* Sliding Menu Section */
+        #menu{
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        #sidenav{
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color:#e74c3c;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 70px;
+            font-size: 20px;
+        }
+
+        p{
+            color: whitesmoke;
+            text-align: center;
+        }
+
+        a{
+            text-align: left;
+            margin-left: 30px;
+            color:#fff;
+            text-decoration: none;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #sidenav #closebtn{
+            position:absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            color: whitesmoke;
+            cursor: pointer;
+        }
+
+        h1{
+            text-align: center;
+            font-size: 100px;
+        }
+
+        #sidenav a {
+            color:#fff;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        #sidenav a:hover{
+            color:yellow;
+        }
+
+        .hrsidenav{
+            width: 215px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        /* Receipt Section */
+        .receipt-container {
+            max-width: 800px;
+            margin: 100px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .receipt-container p{
+            color: black;
+        }
+
+        .receipt-container h1 {
+            text-align: center;
+            color: #333;
+            font-size: 40px;
+        }
+        .receipt-container h2 {
+            text-align: center;
+            color: #333;
+            font-size: 30px;
+        }
+        .receipt-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .receipt-item:last-child {
+            border-bottom: none;
+        }
+        .total-price, .total-nights, .total-products {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 20px;
+            color: black;
+        }
+
+        #check-in-date{color: black;
+
+        }
+        #check-out-date{color: black;
+
+        }
+        .checkout-btn {
+            text-align: center;
+            width: 150px;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display:block;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+
+        /* Footer Section */
+        .footer {
+            background-color: #20263e;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer .footertitle {
+            font-size: 36px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .footer .address,
+        .footer .contact {
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        .footer .social-icons {
+            margin: 5px 0;
+        }
+        
+        .footer .social-icons a {
+            margin: 0 5px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px
+        }
+        
+        .footer .social-icons a:hover {
+            color: #e74c3c;
+        }
+        
+        .footer .icon-container {
+            text-align: center;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .footer .icon-container img {
+            display: block;
+            margin: 0 auto;
+            margin-top: 5px;
+        }
+        
+        .imgicon {
+            width: 50px;
+        }
+
+        .footer .newsletter {
+            margin: 5px 0;
+        }
+
+        .footer .newsletter input[type="email"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        .footer .newsletter button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e74c3c;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .footer .newsletter button:hover {
+            background-color: #d62c1a;
+        }
+
+        .footer .copyright {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+
+
+    <script>
+        // Navigation Link Section
+        const navLinks = document.querySelector('.nav-links');
+        
+        
+        menuIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('active');   
+        });
+
+        // Sliding Menu Section
+        function open_nav(){
+            document.getElementById('sidenav').style.width = '250px';
+        }   
+
+        function closebtn(){
+            document.getElementById('sidenav').style.width = '0';
+        }
+
+        // Footer Section
+        function subscribeAlert() {
+            alert('Thank you for subscribing to our newsletter!');
+        }
+
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="navbar">
+
+            <span id="menu" onclick="open_nav()">&#9776;</span>
+            <div id="sidenav">
+                <span id="closebtn" onclick="closebtn()">&times</span>
+
+                <hr class="hrsidenav"> 
+                <a href="homepage.html" class="insidenav">Home</a> 
+                <br> 
+                <hr class="hrsidenav">
+                <a href="gallery.html" class="insidenav">Gallery</a> 
+                <br> 
+                <hr class="hrsidenav">
+                <a href="bookinglist.html" class="insidenav">History</a> 
+                <br> 
+                <hr class="hrsidenav">
+            </div>
+
+            <div class="title">
+                <a href="homepage.html" id="title">SIGMA PREMIER HOTEL</a>
+            </div>
+
+            <nav class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="bookingcart.html">Accommodation</a>
+                <a href="checkout.html">Checkout</a>
+            </nav>        
+        </div>
+    </header>
+
+
+    <!-- Receipt Section -->
+    <div class="receipt-container">
+        <h1 id="receipttitle">Receipt</h1>
+        <h2>Booking Details</h2>
+        <p><strong>Check-In Date:</strong> <span id="check-in-date"></span></p>
+        <p><strong>Check-Out Date:</strong> <span id="check-out-date"></span></p>
+        <div id="receipt-items"></div>
+        <p class="total-price" id="total-price">Total Price: RM0.00</p>
+        <p class="total-nights" id="total-nights">Total Nights: 0</p>
+        <p class="total-products" id="total-products">Total Products: 0</p>
+        <a href="homepage.html" class="checkout-btn" id="checkout-btn">Back to Homepage</a>
+    </div>
+
+    <script>
+        // Function to display the receipt details
+        function displayReceipt() {
+            // Retrieve the booking history from local storage, or set an empty array if none exists
+            const bookingHistory = JSON.parse(localStorage.getItem('bookingHistory')) || [];
+
+            // Get the last booking from the booking history
+            const lastBooking = bookingHistory[bookingHistory.length - 1] || { checkInDate: '', checkOutDate: '', items: [], total: 0, days: 0 };
+
+            // Display the check-in and check-out dates
+            document.getElementById('check-in-date').textContent = lastBooking.checkInDate;
+            document.getElementById('check-out-date').textContent = lastBooking.checkOutDate;
+
+            // Get the container for receipt items
+            const receiptItemsContainer = document.getElementById('receipt-items');
+            receiptItemsContainer.innerHTML = '';
+
+            // Loop through the items in the last booking and create elements for each item
+            lastBooking.items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'receipt-item';
+                itemElement.innerHTML = `<span>${item.roomName}</span> <span>${item.price}</span>`;
+                receiptItemsContainer.appendChild(itemElement); // Append each item element to the container
+            });
+
+            // Display the total price, total nights, and total products
+            document.getElementById('total-price').textContent = `Total Price: RM${lastBooking.total.toFixed(2)}`;
+            document.getElementById('total-nights').textContent = `Total Nights: ${lastBooking.days}`;
+            document.getElementById('total-products').textContent = `Total Products: ${lastBooking.items.length}`;
+        }
+
+        // Add an event listener to display the receipt when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', displayReceipt);
+    </script>
+
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footertitle">Sigma Premier Hotel</div>
+        <div class="address">
+            123 Luxury Lane, Columbus, Ohio, 43215
+        </div>
+        <div class="contact">
+            Phone: (123) 456-7890 | Email: contact@sigmapremierhotel.com
+        </div>
+        <div class="footer">
+            <div class="social-icons">
+                <div class="icon-container">
+                    <a href="https://www.facebook.com/"><i class="fa fa-facebook">Facebook</i><img src="facebookicon.png" alt="Facebook Icon" class="imgicon"></a>
+                    
+                </div>
+                <div class="icon-container">
+                    <a href="https://www.twitter.com/"><i class="fa fa-twitter">Twitter</i><img src="twittericon.png" alt="" class="imgicon"></a>
+                </div>
+                <div class="icon-container">
+                    <a href="https://www.instagram.com/"><i class="fa fa-instagram">Instagram</i><img src="instagramicon.png" alt="" class="imgicon"></a>
+
+                </div>
+            </div>
+        </div>
+        <div class="newsletter">
+            <p>Subscribe to our newsletter for the latest updates!</p>
+            <br>
+            <input type="email" placeholder="Enter your email" required>
+            <button type="button" onclick="subscribeAlert()">Subscribe</button>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Sigma Premier Hotel. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Font Awesome for social icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+
+</body>
+</html>

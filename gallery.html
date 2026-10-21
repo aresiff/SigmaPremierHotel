@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+    /* Body Section */
+    body{
+      background-color: papayawhip;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      }
+
+    /* Header Section */
+    .header {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      }
+
+    /* Navigation Section */
+    .navbar {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      }
+
+    .title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-49%);
+      font-size: 24px;
+      font-weight: bold;
+      }
+        
+    .title a {
+      color: #e74c3c;
+      text-decoration: none;
+      font-size: 40px;
+      font-weight: 700;
+      }
+        
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      position: absolute;
+      left: 80%;
+      transform: translateX(-15%);
+      font-size: 10px;
+      }
+        
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+      position: relative;
+      transition: color 0.3s;
+      }
+        
+    .nav-links a:hover {
+      color: #e74c3c;
+      }
+        
+    .nav-links a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #e74c3c;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      }
+        
+    .nav-links a:hover::after {
+      width: 100%;
+      }
+        
+    @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: #fff;
+      width: 200px;
+      flex-direction: column;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+            
+    .nav-links a {
+      padding: 1rem;
+      text-align: center;
+      }
+    }
+
+    /* Sliding Menu Section */
+    #menu {
+      font-size: 30px;
+      cursor: pointer;
+      }
+
+    #sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #e74c3c;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 70px;
+      font-size: 20px;
+      }
+
+    p {
+      color: whitesmoke;
+      text-align: center;
+      }
+
+    #sidenav a {
+      text-align: left;
+      margin-left: 30px;
+      color: #fff;
+      text-decoration: none;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      }
+
+    #sidenav #closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      color: whitesmoke;
+      cursor: pointer;
+      }
+
+    h1 {
+      text-align: center;
+      font-size: 100px;
+      }
+
+    #sidenav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 20px;
+      transition: color 0.3s;
+      }
+        
+    #sidenav a:hover {
+      color: yellow;
+      }
+
+    .hrsidenav {
+      width: 215px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      margin-left: 10px;
+      }
+
+    
+
+    /* Tab Section */
+
+    /* Import Google Font */   
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+    /* Define CSS variables for colors */
+    :root {
+    --clr-primary: hsl(263, 81%, 45%);
+    --clr-text-dark: hsl(250, 15%, 8%);
+    --clr-text-light: hsl(240, 4%, 57%);
+    --clr-bg: hsl(225, 62%, 95%);
+    --clr-neutral: hsl(222, 23%, 91%);
+    --clr-white: hsl(0, 0%, 100%);
+    }
+  
+    /* Reset margin, padding, and box-sizing for all elements */
+    *,
+    *::before,
+    *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+     
+    /* Remove default styles for button, ul, and li elements */
+    button,
+    ul,
+    li {
+        all: unset;
+    }
+        
+    .tab-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--clr-white);
+    margin:120px auto;
+    padding:100px auto;
+    font-family: Poppins, system-ui;
+    border-radius: 20px;
+    }
+
+    .tab-container h3{
+    color: black;
+    }
+
+    .tab-container p{
+    color: black;
+    text-align:left
+    }
+        
+    .tab-menu {
+    display: flex;
+    width: 100%;
+    }
+    /* Individual tab styling */    
+    .tab-menu > .tab {
+    flex: 1;
+    background-color: var(--clr-neutral);
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    }
+    /* Add border to the right of each tab except the last one */
+    .tab-menu > .tab:not(:last-child) {
+    border-right: 2px solid var(--clr-white);
+    }
+    /* Active tab styling */    
+    .tab-menu > .tab.active {
+    background-color: var(--clr-white);
+    }
+    /* Anchor tag styling within tabs */    
+    .tab > a {
+    width: 100%;
+    height: 100%;
+    padding: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--clr-text-dark);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    }
+    /* Change anchor tag color for active tab */
+    .tab-menu > .tab.active > a {
+    color: var(--clr-primary);
+    }
+        
+    .tab-panels {
+    padding: 48px;
+    }
+    /* Panel heading styling */    
+    .panel > h3 {
+    font-size: 28px;
+    color: var (--clr-text-dark);
+    margin-bottom: 20px;
+    }
+    /* Panel paragraph styling */    
+    .panel > p {
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 28px;
+    }
+    /* Button styling within panels */    
+    .panel > a.button {
+    display: inline-block;
+    padding: 10px 28px;
+    color: var(--clr-white);
+    background-color: var(--clr-text-dark);
+    border-radius: 6px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    }
+    /* Button hover effect */
+    .panel > a.button:hover {
+    opacity: 0.9;
+    }
+    /* Specific styling for the 'book-button' ID */
+    #book-button{
+    background-color: #e74c3c;
+    }
+        
+
+    /* Image Gallery Section */
+
+    /* Container for image gallery */
+    .img-gallery {
+    width: 90%;
+    margin: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: minmax(300px, 1fr);
+    gap: 25px;
+    padding-bottom: 10px;
+    }
+    
+    /* Styling for images within the gallery */
+    .img-gallery > img {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: 0.6s ease; /* Smooth transition for hover effects */
+    }
+    /* Hover effect for images */   
+    .img-gallery img:hover {
+    scale: 0.85; /* Scale down the image on hover */
+    box-shadow: 10px 26px 60px rgba(68, 77, 136, 0.3); /* Add a shadow effect on hover */
+    }
+
+    /* Footer Section */
+    .footer {
+    background-color: #20263e;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+    }
+
+    .footer .footertitle {
+    font-size: 36px;
+    font-weight: 700;
+    color: #e74c3c;
+    }
+
+    .footer .address,
+    .footer .contact {
+    margin: 20px 0;
+    font-size: 16px;
+    }
+
+    .footer .social-icons {
+    margin: 5px 0;
+    }
+        
+    .footer .social-icons a {
+    margin: 0 5px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px
+    }
+        
+    .footer .social-icons a:hover {
+    color: #e74c3c;
+    }
+        
+    .footer .icon-container {
+    text-align: center;
+    display: inline-block;
+    margin-right: 20px;
+    }
+        
+    .footer .icon-container img {
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+    }
+        
+    .imgicon {
+    width: 50px;
+    }
+
+    .footer .newsletter {
+    margin: 5px 0;
+    }
+
+    .footer .newsletter input[type="email"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 250px;
+    }
+
+    .footer .newsletter button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e74c3c;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    }
+
+    .footer .newsletter button:hover {
+    background-color: #d62c1a;
+    }
+
+    .footer .copyright {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #aaa;
+    }
+    </style>
+
+    <script>
+    // Navigation Link Section
+    document.addEventListener('DOMContentLoaded', function() {
+    const menuIcon = document.getElementById('menu');
+    const navLinks = document.querySelector('.nav-links');
+            
+    menuIcon.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    });
+
+    // Sliding Menu Section
+    window.open_nav = function() {
+    document.getElementById('sidenav').style.width = '250px';
+    }
+
+    window.closebtn = function() {
+    document.getElementById('sidenav').style.width = '0';
+    }
+    });
+
+    // Footer Section
+    function subscribeAlert() {
+    alert('Thank you for subscribing to our newsletter!');
+    }
+
+    // Tab Section
+    document.addEventListener("DOMContentLoaded", () => {
+    // Select all tab panels and tabs, and the container for tabs
+    const tabPanels = Array.from(document.querySelectorAll(".tab-panels > div"));
+    const tabs = Array.from(document.querySelectorAll(".tab"));
+    const tabsContainer = document.querySelector(".tab-menu");
+
+    // Initially hide all tab panels except the first one
+    tabPanels.forEach((tab, index) => {
+    if (index > 0) tab.setAttribute("hidden", "");
+    });
+
+    // Function to switch tabs and show associated panels
+    const switchTab = (e) => {
+    // Find the clicked Tab
+    const clickedTab = e.target.closest("li.tab");
+    if (!clickedTab) return;
+
+    // Remove the "active" class from all Tabs
+    tabs.forEach((tab) => tab.classList.remove("active"));
+    // Add the "active" class to the clicked Tab
+    clickedTab.classList.add("active");
+
+    // Get the associated PANEL for the clicked tab
+    const activePanelId = clickedTab.children[0].getAttribute("href");
+    const activePanel = document.querySelector(activePanelId);
+
+    // Hide all the Tab Panels
+    tabPanels.forEach((panel) => {
+    panel.setAttribute("hidden", "");
+    });
+    // Show the panel associated with the clicked tab
+    activePanel.removeAttribute("hidden", "");
+    };
+ 
+    // Add event listener to the tabs container to handle tab switching
+    tabsContainer.addEventListener("click", switchTab);
+    });
+    </script>
+  </head>
+  <body>
+  <!-- Header Section -->
+  <header class="header">
+      <div class="navbar">
+          <span id="menu" onclick="open_nav()">&#9776;</span>
+            <div id="sidenav">
+                <span id="closebtn" onclick="closebtn()">&times;</span>
+
+                <hr class="hrsidenav"> 
+                <a href="homepage.html" class="insidenav">Home</a> 
+                <br> 
+                <hr class="hrsidenav">
+                <a href="gallery.html" class="insidenav">Gallery</a> 
+                <br> 
+                <hr class="hrsidenav">
+                <a href="bookinglist.html" class="insidenav">History</a> 
+                <br> 
+                <hr class="hrsidenav">
+            </div>
+
+            <div class="title">
+                <a href="homepage.html" id="title">SIGMA PREMIER HOTEL</a>
+            </div>
+
+            <nav class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="bookingcart.html">Accommodation</a>
+                <a href="checkout.html">Checkout</a>
+            </nav>        
+        </div>
+    </header>
+    
+    <!-- Tab Container Section -->
+    <div class="tab-container" id="tab-container">
+
+      <ul class="tab-menu" id="tab-menu">
+        <li class="tab active" id="tab-tower"><a href="#tower">Tower Room</a></li>
+        <li class="tab" id="tab-chalet1"><a href="#chalet1">Chalet 1</a></li>
+        <li class="tab" id="tab-chalet2"><a href="#chalet2">Chalet 2</a></li>
+        <li class="tab" id="tab-chalet3"><a href="#chalet3">Chalet 3</a></li>
+      </ul>
+
+      <div class="tab-panels" id="tab-panels">
+        <div id="tower" class="panel" id="panel-tower">
+          <h3 id="tower-title">Premium Tower Room</h3>
+          <p id="room-description">Located on the 5th to the 11th floor of the main tower block, these rooms offer sky-high living where guests can enjoy <br>
+            unobstructed views of the sea and the rest of the quaint resort. Each of the 605 square feet units is well-equipped with <br>
+            everything you need for a comfortable getaway, including a lavish bathtub where you can enjoy delightful bubble baths, <br>
+            and 1 king size and 1 queen size bed that can fit four people cozily. The strategic layout of the rooms’ interior allows you <br>
+            to enjoy a stunning view of the sea while you laze in the comfort of the beds. What better way to start your day than to <br>
+            wake up to a gorgeous sea view?</p>
+          <a href="bookingcart.html" class="button" id="book-button">Book Now!</a>
+          <div class="img-gallery">
+            <img src="ptrgallery1.jpg">
+            <img src="ptrgallery2.jpg">
+            <img src="ptrgallery3.jpg">
+            <img src="ptrgallery4.jpg">
+            <img src="ptrgallery5.jpg">
+            <img src="ptrgallery6.jpg">
+          </div>
+        </div>
+
+        <div id="chalet1" class="panel" hidden id="panel-chalet1">
+          <h3 id="chalet1-title">Deluxe Water Chalet</h3>
+          <p id="room-description">Each of the 418 square feet Deluxe Water Chalets comes with 1 king size bed and 1 day bed. Perched over the sea, <br>
+             the chalets either come with full sea views, or partial sea views along with the lovely surrounding resort compound.</p>
+          <a href="bookingcart.html" class="button" id="book-button">Book Now!</a>
+          <div class="img-gallery">
+            <img src="dwtgallery1.jpg">
+            <img src="dwcgallery2.jpg">
+            <img src="dwcgallery3.jpg">
+            <img src="dwcgallery4.jpg">
+            <img src="dwcgallery5.jpg">
+            <img src="dwcgallery6.jpg">
+          </div>
+        </div>
+
+        <div id="chalet2" class="panel" hidden id="panel-chalet2">
+          <h3 id="chalet2-title">Executive Water Chalet</h3>
+          <p id="room-description">Each of the 510 square feet Executive Water Chalets is luxuriously airy and furnished with 1 king size bed and 1 day bed. <br>
+            To add a touch of elegance, the king size bed comes with a lustrous canopy draped across the top. Every unit comes with <br>
+            a separate shower and bathtub for added indulgence and convenience. There is also a private balcony that is equipped <br>
+            with comfortable deckchairs, where you can lie back and relax with a cuppa while enjoying the splendid sea view.</p>
+          <a href="bookingcart.html" class="button" id="book-button">Book Now!</a>
+          <div class="img-gallery">
+            <img src="ewcgallery1.jpg">
+            <img src="ewcgallery2.jpg">
+            <img src="ewcgallery3.jpg">
+            <img src="ewcgallery4.jpg">
+            <img src="ewcgallery5.jpg">
+            <img src="ewcgallery6.jpg">
+          </div>
+        </div>
+
+        <div id="chalet3" class="panel" hidden id="panel-chalet3">
+          <h3 id="chalet3-title">Premium Water Chalet</h3>
+          <p id="room-description">Each Premium Water Chalet comes with 1 king size bed and 1 queen size bed which can fit 4 guests comfortably, <br>
+            and measures at 605 square feet, making it the most spacious accommodation available in the entire resort. <br>
+            Each chalet boasts a spa-inspired bathroom with separate walk-in shower and an extravagant bathtub for extra indulgence. <br>
+            The exquisite infusion of tasteful traditional elements and architecture in the chalet’s interior and decor, with its tumble stone and tropical wood floorings, sets the perfect ambience for a purely relaxing vacation.</p>
+          <a href="bookingcart.html" class="button" id="book-button">Book Now!</a>
+          <div class="img-gallery">
+            <img src="pwcgallery1.jpg">
+            <img src="pwcgallery2.jpg">
+            <img src="pwcgallery3.jpg">
+            <img src="pwcgallery4.jpg">
+            <img src="pwcgallery5.jpg">
+            <img src="pwcgallery6.jpg">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footertitle">Sigma Premier Hotel</div>
+        <div class="address">
+            123 Luxury Lane, Columbus, Ohio, 43215
+        </div>
+        <div class="contact">
+            Phone: (123) 456-7890 | Email: contact@sigmapremierhotel.com
+        </div>
+        <div class="footer">
+            <div class="social-icons">
+                <div class="icon-container">
+                    <a href="https://www.facebook.com/"><i class="fa fa-facebook">Facebook</i><img src="facebookicon.png" alt="Facebook Icon" class="imgicon"></a>
+                    
+                </div>
+                <div class="icon-container">
+                    <a href="https://www.twitter.com/"><i class="fa fa-twitter">Twitter</i><img src="twittericon.png" alt="" class="imgicon"></a>
+                </div>
+                <div class="icon-container">
+                    <a href="https://www.instagram.com/"><i class="fa fa-instagram">Instagram</i><img src="instagramicon.png" alt="" class="imgicon"></a>
+
+                </div>
+            </div>
+        </div>
+        <div class="newsletter">
+            <p>Subscribe to our newsletter for the latest updates!</p>
+            <br>
+            <input type="email" placeholder="Enter your email" required>
+            <button type="button" onclick="subscribeAlert()">Subscribe</button>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Sigma Premier Hotel. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Font Awesome for social icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+  </body>
+</html>

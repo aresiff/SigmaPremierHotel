@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+       /* Body Section */
+       body {
+            background-color: papayawhip;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+        /* Header Section */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            position:fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+        /* Navigation Section */
+        .navbar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-54%);
+            font-size: 24px;
+            font-weight: bold;
+            
+        }
+        
+        .title a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-size: 40px;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            position: absolute;
+            left: 80%;
+            transform: translateX(-25%);
+            font-size: 10px;
+            
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #e74c3c;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background: #fff;
+                width: 200px;
+                flex-direction: column;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+        .nav-links a {
+            padding: 1rem;
+            text-align: center;
+        }   }
+
+
+
+        /* Sliding Menu Section */
+        #menu{
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        #sidenav{
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color:#e74c3c;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 70px;
+            font-size: 20px;
+        }
+
+        p{
+            color: whitesmoke;
+            text-align: center;
+        }
+
+        a{
+            text-align: left;
+            margin-left: 30px;
+            color:#fff;
+            text-decoration: none;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #sidenav #closebtn{
+            position:absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            color: whitesmoke;
+            cursor: pointer;
+        }
+
+        h1{
+            text-align: center;
+            font-size: 100px;
+        }
+
+        #sidenav a {
+            color:#fff;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        #sidenav a:hover{
+            color:yellow;
+        }
+
+        .hrsidenav{
+            width: 215px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+
+        /* Checkout Container Section */
+        .checkout-container {
+            margin: 100px auto;
+            padding: 20px;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #checkouttitle{
+            font-size: 50px;
+        }
+
+        .checkout-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .checkout-item:last-child {
+            border-bottom: none; /* Remove bottom border for the last item */
+        }
+
+        .remove-btn {
+            color: red; /* Red color for remove button */
+            cursor: pointer; /* Pointer style for cursor */
+        }
+
+        .total-price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .checkout-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block; /* Display as inline block */
+        }
+
+        .date-inputs {
+            margin-bottom: 20px; /* Bottom margin for date inputs */
+        }
+
+        .date-inputs label {
+            margin-right: 10px; /* Right margin for labels within date inputs */
+        }
+
+        .time{
+            border-radius: 10px;
+        }
+
+
+        /* Footer Section */
+        .footer {
+            background-color: #20263e;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer .footertitle {
+            font-size: 36px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .footer .address,
+        .footer .contact {
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        .footer .social-icons {
+            margin: 5px 0;
+        }
+        
+        .footer .social-icons a {
+            margin: 0 5px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px
+        }
+        
+        .footer .social-icons a:hover {
+            color: #e74c3c;
+        }
+        
+        .footer .icon-container {
+            text-align: center;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .footer .icon-container img {
+            display: block;
+            margin: 0 auto;
+            margin-top: 5px;
+        }
+        
+        .imgicon {
+            width: 50px;
+        }
+
+        .footer .newsletter {
+            margin: 5px 0;
+        }
+
+        .footer .newsletter input[type="email"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        .footer .newsletter button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e74c3c;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .footer .newsletter button:hover {
+            background-color: #d62c1a;
+        }
+
+        .footer .copyright {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+
+    <script>
+        // Navigation Link Section
+        const navLinks = document.querySelector('.nav-links');
+        
+        
+        menuIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('active');   
+        });
+
+        // Sliding Menu Section
+        function open_nav(){
+            document.getElementById('sidenav').style.width = '250px';
+        }   
+
+        function closebtn(){
+            document.getElementById('sidenav').style.width = '0';
+        }
+
+        // Footer Section
+        function subscribeAlert() {
+            alert('Thank you for subscribing to our newsletter!');
+        }
+
+        // Date Time Section
+        function datetime()
+    {
+        const sDate = new Date()
+        alert (sDate)
+    }
+
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="navbar">
+
+            <span id="menu" onclick="open_nav()">&#9776;</span>
+            <div id="sidenav">
+                <span id="closebtn" onclick="closebtn()">&times</span>
+
+                <hr class="hrsidenav"> 
+                <a href="homepage.html" class="insidenav">Home</a> 
+                <br> 
+                <hr class="hrsidenav">
+                <a href="gallery.html" class="insidenav">Gallery</a> 
+                <br> 
+                <hr class="hrsidenav">
+                <a href="bookinglist.html" class="insidenav">History</a> 
+                <br> 
+                <hr class="hrsidenav">
+            </div>
+
+            <div class="title">
+                <a href="homepage.html" id="title">SIGMA PREMIER HOTEL</a>
+            </div>
+
+            <nav class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="bookingcart.html">Accommodation</a>
+                <a href="checkout.html">Checkout</a>
+            </nav>        
+        </div>
+    </header>
+
+    <div class="checkout-container">
+        <h1 id="checkouttitle">Booking Cart</h1>
+        
+        <div class="date-inputs">
+            <label for="check-in-date">Check-In: <input type="date" id="check-in-date"></label>
+            <label for="check-out-date">Check-Out: <input type="date" id="check-out-date"></label>
+            <span class="time"><button onclick="datetime()">Date Time</button></span>
+        </div>
+
+        <div id="checkout-items"></div>
+        <div class="total-price" id="total-price">Total: RM0.00</div>
+
+        <a href="#" class="checkout-btn" id="checkout-btn">Proceed to Checkout</a>
+    </div>
+
+    <script>
+        // Check In Date, Check Out Date Section
+
+        function calculateDays(checkInDate, checkOutDate) {
+            const oneDay = 24 * 60 * 60 * 1000; // Milliseconds in one day
+            const firstDate = new Date(checkInDate); // Parse check-in date
+            const secondDate = new Date(checkOutDate); // Parse check-out date
+            const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay)); // Calculate difference in days
+            return diffDays; // Return the number of days
+        }
+
+        function removeItem(index) {
+            let checkoutItems = JSON.parse(localStorage.getItem('checkoutItems')) || []; // Get checkout items from localStorage
+            checkoutItems.splice(index, 1); // Remove item at specified index
+            localStorage.setItem('checkoutItems', JSON.stringify(checkoutItems)); // Update localStorage
+            displayCheckoutItems(); // Refresh checkout items display
+        }
+
+        function displayCheckoutItems() {
+            let checkoutItems = JSON.parse(localStorage.getItem('checkoutItems')) || []; // Get checkout items from localStorage
+            let checkoutContainer = document.getElementById('checkout-items'); // Get checkout container element
+            let totalPriceElement = document.getElementById('total-price'); // Get total price element
+            let checkInDate = document.getElementById('check-in-date').value; // Get check-in date value
+            let checkOutDate = document.getElementById('check-out-date').value; // Get check-out date value
+            let total = 0; // Initialize total price
+            let days = 1; // Initialize number of days
+
+            if (checkInDate && checkOutDate) {
+                days = calculateDays(checkInDate, checkOutDate); // Calculate number of days between dates
+            }
+
+            checkoutContainer.innerHTML = ''; // Clear checkout container
+            checkoutItems.forEach((item, index) => {
+                let itemElement = document.createElement('div'); // Create new div for item
+                itemElement.className = 'checkout-item'; // Set class name
+                itemElement.innerHTML = `
+                    <span>${item.roomName} - ${item.price}</span>
+                    <span class="remove-btn" onclick="removeItem(${index})">Remove</span>
+                `; // Set item content with remove button
+                checkoutContainer.appendChild(itemElement); // Append item to container
+                total += parseFloat(item.price.replace('RM', '').replace(',', '')) * days;
+            });
+            totalPriceElement.textContent = `Total: RM${total.toFixed(2)} for ${days} night(s)`;
+
+            // Save the data to localStorage for the receipt page
+            localStorage.setItem('checkoutDetails', JSON.stringify({
+                checkInDate,
+                checkOutDate,
+                total,
+                items: checkoutItems,
+                days
+            }));
+        }
+
+        // Add event listeners for date input changes to update checkout items display
+        document.getElementById('check-in-date').addEventListener('change', displayCheckoutItems);
+        document.getElementById('check-out-date').addEventListener('change', displayCheckoutItems);
+        // Add event listener for storage events to update checkout items display
+        window.addEventListener('storage', displayCheckoutItems);
+        // Update checkout items display when the document is fully loaded
+        document.addEventListener('DOMContentLoaded', displayCheckoutItems);
+
+        // Add event listener for the checkout button
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            alert('Proceeding to checkout...');
+
+            // Get booking details from localStorage
+            let checkoutDetails = JSON.parse(localStorage.getItem('checkoutDetails')) || {};
+            
+            // Get existing booking history
+            let bookingHistory = JSON.parse(localStorage.getItem('bookingHistory')) || [];
+
+            // Add the new booking to the history
+            bookingHistory.push(checkoutDetails);
+
+            // Save updated booking history back to localStorage
+            localStorage.setItem('bookingHistory', JSON.stringify(bookingHistory));
+
+            // Redirect to the login page
+            window.location.href = 'login.html';
+        });
+    </script>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footertitle">Sigma Premier Hotel</div>
+        <div class="address">
+            123 Luxury Lane, Columbus, Ohio, 43215
+        </div>
+        <div class="contact">
+            Phone: (123) 456-7890 | Email: contact@sigmapremierhotel.com
+        </div>
+        <div class="footer">
+            <div class="social-icons">
+                <div class="icon-container">
+                    <a href="https://www.facebook.com/"><i class="fa fa-facebook">Facebook</i><img src="facebookicon.png" alt="Facebook Icon" class="imgicon"></a>
+                    
+                </div>
+                <div class="icon-container">
+                    <a href="https://www.twitter.com/"><i class="fa fa-twitter">Twitter</i><img src="twittericon.png" alt="" class="imgicon"></a>
+                </div>
+                <div class="icon-container">
+                    <a href="https://www.instagram.com/"><i class="fa fa-instagram">Instagram</i><img src="instagramicon.png" alt="" class="imgicon"></a>
+
+                </div>
+            </div>
+        </div>
+        <div class="newsletter">
+            <p>Subscribe to our newsletter for the latest updates!</p>
+            <br>
+            <input type="email" placeholder="Enter your email" required>
+            <button type="button" onclick="subscribeAlert()">Subscribe</button>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Sigma Premier Hotel. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Font Awesome for social icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
